@@ -1,0 +1,6 @@
+framework module Pods_OAuthTestAppTests {
+  umbrella header "Pods-OAuthTestAppTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

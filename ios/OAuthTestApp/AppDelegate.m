@@ -8,9 +8,12 @@
  */
 
 #import "AppDelegate.h"
+#import "OAuthManager.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @implementation AppDelegate
 
@@ -32,6 +35,36 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  return [OAuthManager handleOpenUrl:application
+                             openURL:url
+                   sourceApplication:sourceApplication
+                          annotation:annotation];
+  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+  {
+    - (BOOL)application:(UIApplication *)applicationopenURL:(NSURL *)urloptions:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+        BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+                    ];
+    // Add any custom logic here.
+        return handled;
+      }
+    }
+  }
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+  // Optional: Place the button in the center of your view.
+  loginButton.center = self.view.center;
+  [self.view addSubview:loginButton];
 }
 
 @end
